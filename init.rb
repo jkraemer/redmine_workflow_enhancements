@@ -1,6 +1,5 @@
 require_dependency 'workflow_enhancements/hooks'
 require_dependency 'workflow_enhancements/patches/action_view_rendering'
-require_dependency 'workflow_enhancements/patches/tracker_patch'
 
 Redmine::Plugin.register :redmine_workflow_enhancements do
   name 'Redmine Workflow Enhancements'
@@ -16,3 +15,8 @@ Redmine::Plugin.register :redmine_workflow_enhancements do
     permission :workflow_graph_view, :workflow_enhancements => :show
   end
 end
+
+Rails.configuration.to_prepare do
+  WorkflowEnhancements::Patches::TrackerPatch.apply
+end
+
